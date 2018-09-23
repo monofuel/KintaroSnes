@@ -165,19 +165,23 @@ class SNES:
         if self.return_config_bool("pcb") and GPIO.input(self.check_pin) == GPIO.LOW:  # check if there is an pcb and if so attach the interrupts
             GPIO.add_event_detect(self.check_pin, GPIO.RISING,callback=self.pcb_interrupt)  # if not the interrupt gets attached
             if GPIO.input(self.power_pin) == GPIO.HIGH: #when the system gets startet in the on position it gets shutdown
+                print('shutting down')
                 os.system("sudo shutdown -h now")
             else:
                 self.led(1)
                 GPIO.add_event_detect(self.reset_pin, GPIO.FALLING, callback=self.reset_interrupt)
                 GPIO.add_event_detect(self.power_pin, GPIO.RISING, callback=self.power_interrupt)
         else:       #no pcb attached so lets exit
+            print('no PCB detected')
             GPIO.cleanup()
             exit()
 
+print('starting')
 snes = SNES()
 
 snes.attach_interrupts()
 snes.check_video()
+print('ready')
 
 while True:
     time.sleep(5)
