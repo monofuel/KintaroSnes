@@ -136,8 +136,9 @@ class SNES:
 
     def pwm_fancontrol(self,hysteresis, starttemp, temp):
         perc = 100.0 * ((temp - (starttemp - hysteresis)) / (starttemp - (starttemp - hysteresis)))
-        perc=min(max(perc, 0.0), 100.0)
-        self.pwm.ChangeDutyCycle(float(perc))
+        perc=float(min(max(perc, 0.0), 100.0))
+        print('PWM duty cycle: {}'.format(perc))
+        self.pwm.ChangeDutyCycle(perc)
 
     def change_config_value(self,toggle_this):  #change one of the values in the config file
         parser = configparser.ConfigParser()
