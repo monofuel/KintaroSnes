@@ -6,16 +6,13 @@
 # and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 #The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-try:
-    import configparser
-    import time
-    import os
-    import ASUS.GPIO as GPIO
-    import subprocess
-    from configparser import SafeConfigParser
-    from enum import Enum
-except ImportError:
-    raise ImportError('spidev or gpio not installed')
+import configparser
+import time
+import os
+import ASUS.GPIO as GPIO
+import subprocess
+from configparser import SafeConfigParser
+from enum import Enum
 
 class SNES:
 
