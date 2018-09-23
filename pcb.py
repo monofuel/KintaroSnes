@@ -41,7 +41,7 @@ class SNES:
 
         #path
 
-        self.kintaro_folder = "/opt/kintaro/"
+        self.kintaro_folder = "/opt/KintaroSnes/"
         self.start_folder = "start/"
         self.intro_video = self.kintaro_folder + self.start_folder + "intro.mp4"
         self.config_file = self.kintaro_folder + self.start_folder + "kintaro.config"
