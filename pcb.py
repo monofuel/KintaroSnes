@@ -184,6 +184,10 @@ snes.attach_interrupts()
 snes.check_video()
 print('ready')
 
+if self.return_config_bool("fan"):
+    # kickstart the fan to get it spinning and prevent burning it out
+    snes.pwm.ChangeDutyCycle(100)
+
 while True:
     time.sleep(5)
     snes.led(1)
