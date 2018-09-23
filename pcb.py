@@ -7,11 +7,10 @@
 #The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 try:
-    import http.server
     import configparser
     import time
     import os
-    import RPi.GPIO as GPIO
+    import ASUS.GPIO as GPIO
     import subprocess
     from configparser import SafeConfigParser
     from enum import Enum
@@ -49,7 +48,7 @@ class SNES:
         self.start_folder = "start/"
         self.intro_video = self.kintaro_folder + self.start_folder + "intro.mp4"
         self.config_file = self.kintaro_folder + self.start_folder + "kintaro.config"
-        self.temp_command = 'vcgencmd measure_temp'
+        # self.temp_command = 'vcgencmd measure_temp'
 
         #Set the GPIOs
 
@@ -101,9 +100,12 @@ class SNES:
     def pcb_interrupt(self, channel):
         GPIO.cleanup()  # when the pcb is pulled clean all the used GPIO pins
 
-    def temp(self):     #returns the gpu temoperature
-        res = os.popen(self.temp_command).readline()
-        return float((res.replace("temp=", "").replace("'C\n", "")))
+    def temp(self):   # read tinkerboard temperature
+        # there are 2 thermal zones (0 and 1) but they are usually the same
+        with open('/sys/class/thermal/thermal_zone0/temp', 'r') as myfile:
+            temp = float(myfile.read().replace('\n','')) / 1000
+            print('polling temp:{}C'.format(temp))
+            return temp
 
     def led(self,status):  #toggle the led on of off
         if status == 0:       #the led is inverted
