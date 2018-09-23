@@ -6,7 +6,7 @@ function install_script {
     # cp -i pcb.py /opt/kintaro/pcb.py
     # cp -R start /opt/kintaro/start
     # cp -i kintarosetup.py /home/pi/kintarosetup.py
-    chmod +x /opt/KintaroSnes/pcb.py
+    # chmod +x /opt/KintaroSnes/pcb.py
     useradd -r -s /bin/false kintaro
     chown -R kintaro:kintaro /opt/KintaroSnes
     cp -i kintaro.service /etc/systemd/system/kintaro.service
